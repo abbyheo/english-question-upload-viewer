@@ -41,6 +41,7 @@ class UploadEnglishQuestionViewer {
         // 검색 이벤트
         document.getElementById('searchInput').addEventListener('input', (e) => {
             this.filterFiles(e.target.value);
+            this.filterQuestions(e.target.value);
         });
 
         // 탭 전환 이벤트
@@ -140,11 +141,24 @@ class UploadEnglishQuestionViewer {
         
         fileItems.forEach(item => {
             const fileName = item.dataset.fileName;
-            if (!searchTerm.trim() || fileName.toLowerCase().includes(searchTerm.toLowerCase())) {
+            const isCurrentFile = fileName === this.currentFileName;
+            if (!searchTerm.trim() || fileName.toLowerCase().includes(searchTerm.toLowerCase()) || isCurrentFile) {
                 item.style.display = 'flex';
             } else {
                 item.style.display = 'none';
             }
+        });
+    }
+
+    // 선택된 파일 안의 문항 검색 결과 필터링
+    filterQuestions(searchTerm) {
+        const questionItems = document.querySelectorAll('#questionsTab .question-container');
+        if (!questionItems.length) return;
+
+        const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+        questionItems.forEach(item => {
+            const searchText = item.dataset.searchText || '';
+            item.style.display = !normalizedSearchTerm || searchText.includes(normalizedSearchTerm) ? 'block' : 'none';
         });
     }
 
@@ -178,6 +192,7 @@ class UploadEnglishQuestionViewer {
             this.displayQuestions(fileInfo.data);
             this.displayRawJson(fileInfo.data);
             this.displayHtmlContent(fileInfo.data);
+            this.filterQuestions(document.getElementById('searchInput').value);
 
         } catch (error) {
             console.error('파일 로드 오류:', error);
@@ -246,6 +261,8 @@ class UploadEnglishQuestionViewer {
             // 이미지 정보 가져오기
             const imageInfo = this.getImageInfo(item.imageIds, data.images);
             
+            questionContainer.dataset.searchText = this.buildQuestionSearchText(item, imageInfo).toLowerCase();
+
             // 이미지 정보 HTML 생성
             const imageInfoHtml = imageInfo.length > 0 
                 ? `<div style="margin-top: 5px; font-size: 0.85rem; color: #666; background: #f0f4ff; padding: 5px; border-radius: 3px;">
@@ -337,6 +354,17 @@ class UploadEnglishQuestionViewer {
         }).filter(img => img !== null);
         
         return result;
+    }
+
+
+    // 문항 카드 검색용 경량 텍스트 생성.
+    // 문제집 단위 JSON에서 문항 본문 전체를 DOM data attribute에 중복 저장하지 않도록
+    // 문항 ID와 파일/페이지 메타데이터만 검색 대상으로 둔다.
+    buildQuestionSearchText(item, imageInfo) {
+        const parts = [item.id, item.answerType];
+        imageInfo.forEach(img => parts.push(img.file_name, img.page_type));
+
+        return parts.filter(part => part !== undefined && part !== null).join(' ');
     }
 
     // Annotation 콘텐츠 생성

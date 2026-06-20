@@ -41,6 +41,7 @@ class UploadEnglishQuestionViewer {
         // Search event
         document.getElementById('searchInput').addEventListener('input', (e) => {
             this.filterFiles(e.target.value);
+            this.filterQuestions(e.target.value);
         });
 
         // Tab switch event
@@ -140,11 +141,24 @@ class UploadEnglishQuestionViewer {
         
         fileItems.forEach(item => {
             const fileName = item.dataset.fileName;
-            if (!searchTerm.trim() || fileName.toLowerCase().includes(searchTerm.toLowerCase())) {
+            const isCurrentFile = fileName === this.currentFileName;
+            if (!searchTerm.trim() || fileName.toLowerCase().includes(searchTerm.toLowerCase()) || isCurrentFile) {
                 item.style.display = 'flex';
             } else {
                 item.style.display = 'none';
             }
+        });
+    }
+
+    // Filter visible questions in the selected file
+    filterQuestions(searchTerm) {
+        const questionItems = document.querySelectorAll('#questionsTab .question-container');
+        if (!questionItems.length) return;
+
+        const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+        questionItems.forEach(item => {
+            const searchText = item.dataset.searchText || '';
+            item.style.display = !normalizedSearchTerm || searchText.includes(normalizedSearchTerm) ? 'block' : 'none';
         });
     }
 
@@ -178,6 +192,7 @@ class UploadEnglishQuestionViewer {
             this.displayQuestions(fileInfo.data);
             this.displayRawJson(fileInfo.data);
             this.displayHtmlContent(fileInfo.data);
+            this.filterQuestions(document.getElementById('searchInput').value);
 
         } catch (error) {
             console.error('File loading error:', error);
@@ -246,6 +261,8 @@ class UploadEnglishQuestionViewer {
             // Get image information
             const imageInfo = this.getImageInfo(item.imageIds, data.images);
             
+            questionContainer.dataset.searchText = this.buildQuestionSearchText(item, imageInfo).toLowerCase();
+
             // Generate image information HTML
             const imageInfoHtml = imageInfo.length > 0 
                 ? `<div style="margin-top: 5px; font-size: 0.85rem; color: #666; background: #f0f4ff; padding: 5px; border-radius: 3px;">
@@ -337,6 +354,17 @@ class UploadEnglishQuestionViewer {
         }).filter(img => img !== null);
         
         return result;
+    }
+
+
+    // Build lightweight searchable text for a question card.
+    // Keep this to IDs and file/page metadata so a workbook-sized JSON does not
+    // duplicate all question body text in DOM data attributes.
+    buildQuestionSearchText(item, imageInfo) {
+        const parts = [item.id, item.answerType];
+        imageInfo.forEach(img => parts.push(img.file_name, img.page_type));
+
+        return parts.filter(part => part !== undefined && part !== null).join(' ');
     }
 
     // Create annotation content

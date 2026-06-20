@@ -2,7 +2,7 @@
   "info": {
     "html_url": "",
     "provider": "Abby Heo",
-    "description": "Customer-safe synthetic sample with 2 questions only (1 multiple-choice style, 1 short-answer style).",
+    "description": "Customer-safe synthetic sample with 5 questions for testing upload, rendering, and search.",
     "providerLabel": "Provider: Abby Heo"
   },
   "items": [
@@ -76,6 +76,102 @@
       "explanationAreaInfo": {
         "annotationIds": [
           -28
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "imageIds": [],
+      "answerType": "choice",
+      "sourceInfo": {
+        "provider": "Abby Heo",
+        "providerLabel": "Provider: Abby Heo"
+      },
+      "workerMemo": "",
+      "itemTypeInfo": {},
+      "textHtmlCheck": true,
+      "passageAreaInfo": {
+        "annotationIds": [
+          1001
+        ]
+      },
+      "questionAreaInfo": {
+        "annotationIds": [
+          1002
+        ]
+      },
+      "answerAreaInfo": {
+        "annotationIds": [
+          1003
+        ]
+      },
+      "explanationAreaInfo": {
+        "annotationIds": [
+          1004
+        ]
+      }
+    },
+    {
+      "id": 28,
+      "imageIds": [],
+      "answerType": "short_answer",
+      "sourceInfo": {
+        "provider": "Abby Heo",
+        "providerLabel": "Provider: Abby Heo"
+      },
+      "workerMemo": "",
+      "itemTypeInfo": {},
+      "textHtmlCheck": true,
+      "passageAreaInfo": {
+        "annotationIds": [
+          1005
+        ]
+      },
+      "questionAreaInfo": {
+        "annotationIds": [
+          1006
+        ]
+      },
+      "answerAreaInfo": {
+        "annotationIds": [
+          1007
+        ]
+      },
+      "explanationAreaInfo": {
+        "annotationIds": [
+          1008
+        ]
+      }
+    },
+    {
+      "id": 33,
+      "imageIds": [],
+      "answerType": "choice",
+      "sourceInfo": {
+        "provider": "Abby Heo",
+        "providerLabel": "Provider: Abby Heo"
+      },
+      "workerMemo": "",
+      "itemTypeInfo": {},
+      "textHtmlCheck": true,
+      "passageAreaInfo": {
+        "annotationIds": [
+          1009
+        ]
+      },
+      "questionAreaInfo": {
+        "annotationIds": [
+          1010
+        ]
+      },
+      "answerAreaInfo": {
+        "annotationIds": [
+          1011
+        ]
+      },
+      "explanationAreaInfo": {
+        "annotationIds": [
+          1012
         ]
       }
     }
@@ -593,6 +689,342 @@
       "workInfos": [],
       "category_id": 9,
       "source_image_id": 3
+    },
+    {
+      "id": 1001,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric passage\"><span class=\"0\">This is a sample passage about a school newsletter and a grammar point.</span></div>",
+      "text": "This is a sample passage about a school newsletter and a grammar point.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 3,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1002,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric question\"><span class=\"0\">This is a sample grammar question.</span></div>",
+      "text": "This is a sample grammar question.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 2,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1003,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric answer\"><span class=\"0\">②</span></div>",
+      "text": "②",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 9,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1004,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric explanation\"><span class=\"0\">The sample answer is option ② because the grammar pattern matches the sentence.</span></div>",
+      "text": "The sample answer is option ② because the grammar pattern matches the sentence.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 9,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1005,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric passage\"><span class=\"0\">This is a sample school announcement about a club meeting next Friday.</span></div>",
+      "text": "This is a sample school announcement about a club meeting next Friday.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 3,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1006,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric question\"><span class=\"0\">This is a sample announcement question.</span></div>",
+      "text": "This is a sample announcement question.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 2,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1007,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric answer\"><span class=\"0\">club meeting</span></div>",
+      "text": "club meeting",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 9,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1008,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric explanation\"><span class=\"0\">The sample short answer is taken from the announcement.</span></div>",
+      "text": "The sample short answer is taken from the announcement.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 9,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1009,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric passage\"><span class=\"0\">This is a sample passage about choosing the best vocabulary word for the blank.</span></div>",
+      "text": "This is a sample passage about choosing the best vocabulary word for the blank.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 3,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1010,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric question\"><span class=\"0\">This is a sample vocabulary question.</span></div>",
+      "text": "This is a sample vocabulary question.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 2,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1011,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric answer\"><span class=\"0\">④</span></div>",
+      "text": "④",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 9,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
+    },
+    {
+      "id": 1012,
+      "area": 0,
+      "bbox": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "html": "<div class=\"rubric explanation\"><span class=\"0\">The sample answer is option ④ because it best fits the vocabulary context.</span></div>",
+      "text": "The sample answer is option ④ because it best fits the vocabulary context.",
+      "piece": false,
+      "iscrowd": 0,
+      "bbox_rel": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "image_id": null,
+      "workInfos": [],
+      "confidence": 0,
+      "category_id": 9,
+      "is_epilogue": false,
+      "question_idx": 0,
+      "segmentation": [],
+      "source_image_id": null
     }
   ]
 }
