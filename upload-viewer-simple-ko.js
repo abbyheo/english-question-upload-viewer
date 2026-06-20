@@ -2,24 +2,24 @@ class UploadEnglishQuestionViewer {
     constructor() {
         this.currentData = null;
         this.quillInstances = new Map();
-        this.uploadedFiles = new Map(); // filename -> file object mapping
+        this.uploadedFiles = new Map(); // 파일명 -> 파일 객체 매핑
         this.currentFileName = null;
         
         this.initializeEventListeners();
     }
 
     initializeEventListeners() {
-        // File upload area click event
+        // 파일 업로드 영역 클릭 이벤트
         document.getElementById('uploadArea').addEventListener('click', () => {
             document.getElementById('fileInput').click();
         });
 
-        // File selection event
+        // 파일 선택 이벤트
         document.getElementById('fileInput').addEventListener('change', (e) => {
             this.handleFileSelect(e.target.files);
         });
 
-        // Drag and drop events
+        // 드래그 앤 드롭 이벤트
         const uploadArea = document.getElementById('uploadArea');
         
         uploadArea.addEventListener('dragover', (e) => {
@@ -38,12 +38,12 @@ class UploadEnglishQuestionViewer {
             this.handleFileSelect(e.dataTransfer.files);
         });
 
-        // Search event
+        // 검색 이벤트
         document.getElementById('searchInput').addEventListener('input', (e) => {
             this.filterFiles(e.target.value);
         });
 
-        // Tab switch event
+        // 탭 전환 이벤트
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
                 this.switchTab(e.target.dataset.tab);
@@ -51,18 +51,18 @@ class UploadEnglishQuestionViewer {
         });
     }
 
-    // Handle file selection
+    // 파일 선택 처리
     handleFileSelect(files) {
         Array.from(files).forEach(file => {
             if (file.type === 'application/json' || file.name.endsWith('.json')) {
                 this.processFile(file);
             } else {
-                alert(`${file.name} is not a supported file type. Please upload JSON files only.`);
+                alert(`${file.name}은(는) 지원되지 않는 파일 형식입니다. JSON 파일만 업로드 가능합니다.`);
             }
         });
     }
 
-    // Process file
+    // 파일 처리
     processFile(file) {
         const reader = new FileReader();
         
@@ -75,27 +75,27 @@ class UploadEnglishQuestionViewer {
                 });
                 
                 this.updateFileList();
-                this.showSuccess(`File "${file.name}" uploaded successfully.`);
+                this.showSuccess(`파일 "${file.name}"이(가) 성공적으로 업로드되었습니다.`);
                 
-                // Automatically select the first uploaded file
+                // 첫 번째 파일이면 자동으로 선택
                 if (this.uploadedFiles.size === 1) {
                     this.selectFile(file.name);
                 }
                 
             } catch (error) {
-                console.error('JSON parsing error:', error);
-                this.showError(`File "${file.name}" is not valid JSON.`);
+                console.error('JSON 파싱 오류:', error);
+                this.showError(`파일 "${file.name}"의 JSON 형식이 올바르지 않습니다.`);
             }
         };
         
         reader.onerror = () => {
-            this.showError(`An error occurred while reading file "${file.name}".`);
+            this.showError(`파일 "${file.name}"을(를) 읽는 중 오류가 발생했습니다.`);
         };
         
         reader.readAsText(file);
     }
 
-    // Update file list
+    // 파일 목록 업데이트
     updateFileList() {
         const fileListContainer = document.getElementById('fileList');
         fileListContainer.innerHTML = '';
@@ -103,8 +103,8 @@ class UploadEnglishQuestionViewer {
         if (this.uploadedFiles.size === 0) {
             fileListContainer.innerHTML = `
                 <div class="empty-state">
-                    <h3>No files uploaded</h3>
-                    <p>Upload JSON files above to begin.</p>
+                    <h3>업로드된 파일이 없습니다</h3>
+                    <p>위에서 JSON 파일을 업로드해주세요.</p>
                 </div>
             `;
             return;
@@ -115,7 +115,7 @@ class UploadEnglishQuestionViewer {
             fileItem.className = 'file-item';
             fileItem.dataset.fileName = fileName;
             
-            // Format display filename
+            // 파일명 표시 포맷팅
             const displayName = fileName.length > 20 ? fileName.substring(0, 20) + '...' : fileName;
             
             fileItem.innerHTML = `
@@ -134,7 +134,7 @@ class UploadEnglishQuestionViewer {
         });
     }
 
-    // Filter files by search term
+    // 파일 검색 필터링
     filterFiles(searchTerm) {
         const fileItems = document.querySelectorAll('.file-item');
         
@@ -148,62 +148,62 @@ class UploadEnglishQuestionViewer {
         });
     }
 
-    // Select file
+    // 파일 선택
     selectFile(fileName) {
         try {
-            // Deactivate previous active file
+            // 이전 활성 파일 비활성화
             document.querySelectorAll('.file-item').forEach(item => {
                 item.classList.remove('active');
             });
 
-            // Activate current file
+            // 현재 파일 활성화
             const selectedItem = document.querySelector(`[data-file-name="${fileName}"]`);
             if (selectedItem) {
                 selectedItem.classList.add('active');
             }
 
-            // Show loading state
+            // 로딩 상태 표시
             this.showLoading();
 
             const fileInfo = this.uploadedFiles.get(fileName);
             if (!fileInfo) {
-                throw new Error('File information was not found.');
+                throw new Error('파일 정보를 찾을 수 없습니다.');
             }
 
             this.currentData = fileInfo.data;
             this.currentFileName = fileName;
 
-            // Update UI
+            // UI 업데이트
             this.updateFileInfo(fileName, fileInfo.data);
             this.displayQuestions(fileInfo.data);
             this.displayRawJson(fileInfo.data);
             this.displayHtmlContent(fileInfo.data);
 
         } catch (error) {
-            console.error('File loading error:', error);
-            this.showError(`An error occurred while loading the file: ${error.message}`);
+            console.error('파일 로드 오류:', error);
+            this.showError(`파일을 불러오는 중 오류가 발생했습니다: ${error.message}`);
         }
     }
 
-    // Show success message
+    // 성공 메시지 표시
     showSuccess(message) {
-        // Simple notification
+        // 간단한 알림
         console.log('Success:', message);
     }
 
-    // Show loading state
+    // 로딩 상태 표시
     showLoading() {
         const questionsTab = document.getElementById('questionsTab');
-        questionsTab.innerHTML = '<div class="loading">Loading file...</div>';
+        questionsTab.innerHTML = '<div class="loading">파일을 불러오는 중...</div>';
     }
 
-    // Show error message
+    // 오류 메시지 표시
     showError(message) {
         const questionsTab = document.getElementById('questionsTab');
         questionsTab.innerHTML = `<div class="error">${message}</div>`;
     }
 
-    // Update file information
+    // 파일 정보 업데이트
     updateFileInfo(fileName, data) {
         document.getElementById('currentFileName').textContent = fileName;
         
@@ -212,23 +212,23 @@ class UploadEnglishQuestionViewer {
         const annotationCount = data.annotations ? data.annotations.length : 0;
         const imageCount = data.images ? data.images.length : 0;
         
-        metaInfo = `Questions: ${itemCount} | Annotations: ${annotationCount} | Pages: ${imageCount}`;
+        metaInfo = `문항 수: ${itemCount}개 | 주석 수: ${annotationCount}개 | 페이지 수: ${imageCount}개`;
         if (data.info && data.info.provider) {
-            metaInfo += ` | Provider: ${data.info.provider}`;
+            metaInfo += ` | 제공자: ${data.info.provider}`;
         }
         
         document.getElementById('fileMeta').textContent = metaInfo;
     }
 
-    // Display questions
+    // 문항 표시
     displayQuestions(data) {
         const questionsTab = document.getElementById('questionsTab');
         
         if (!data.items || data.items.length === 0) {
             questionsTab.innerHTML = `
                 <div class="empty-state">
-                    <h3>No questions found</h3>
-                    <p>This file does not contain questions to display.</p>
+                    <h3>문항이 없습니다</h3>
+                    <p>이 파일에는 표시할 문항이 없습니다.</p>
                 </div>
             `;
             return;
@@ -243,21 +243,21 @@ class UploadEnglishQuestionViewer {
             const questionHeader = document.createElement('div');
             questionHeader.className = 'question-header';
             
-            // Get image information
+            // 이미지 정보 가져오기
             const imageInfo = this.getImageInfo(item.imageIds, data.images);
             
-            // Generate image information HTML
+            // 이미지 정보 HTML 생성
             const imageInfoHtml = imageInfo.length > 0 
                 ? `<div style="margin-top: 5px; font-size: 0.85rem; color: #666; background: #f0f4ff; padding: 5px; border-radius: 3px;">
                     📄 ${imageInfo.map(img => img.file_name).join(', ')}
                    </div>`
                 : `<div style="margin-top: 5px; font-size: 0.85rem; color: #999; background: #f8f8f8; padding: 5px; border-radius: 3px;">
-                    📄 No image information
+                    📄 이미지 정보 없음
                    </div>`;
             
             questionHeader.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-                    <span class="question-number">Question ${item.id || index + 1}</span>
+                    <span class="question-number">문항 ${item.id || index + 1}</span>
                     <span class="question-type">${item.answerType || 'Unknown'}</span>
                 </div>
                 ${imageInfoHtml}
@@ -265,27 +265,27 @@ class UploadEnglishQuestionViewer {
             
             questionContainer.appendChild(questionHeader);
 
-            // Passage section
+            // 지문 영역 (Passage)
             if (item.passageAreaInfo && item.passageAreaInfo.annotationIds.length > 0) {
-                const passageSection = this.createQuestionSection('Passage', item.passageAreaInfo.annotationIds, data.annotations);
+                const passageSection = this.createQuestionSection('지문', item.passageAreaInfo.annotationIds, data.annotations);
                 if (passageSection) questionContainer.appendChild(passageSection);
             }
 
-            // Question section
+            // 문제 영역 (Question)
             if (item.questionAreaInfo && item.questionAreaInfo.annotationIds.length > 0) {
-                const questionSection = this.createQuestionSection('Question', item.questionAreaInfo.annotationIds, data.annotations);
+                const questionSection = this.createQuestionSection('문제', item.questionAreaInfo.annotationIds, data.annotations);
                 if (questionSection) questionContainer.appendChild(questionSection);
             }
 
-            // Answer section
+            // 답안 영역 (Answer)
             if (item.answerAreaInfo && item.answerAreaInfo.annotationIds.length > 0) {
-                const answerSection = this.createQuestionSection('Answer', item.answerAreaInfo.annotationIds, data.annotations);
+                const answerSection = this.createQuestionSection('답안', item.answerAreaInfo.annotationIds, data.annotations);
                 if (answerSection) questionContainer.appendChild(answerSection);
             }
 
-            // Explanation section
+            // 해설 영역 (Explanation)
             if (item.explanationAreaInfo && item.explanationAreaInfo.annotationIds.length > 0) {
-                const explanationSection = this.createQuestionSection('Explanation', item.explanationAreaInfo.annotationIds, data.annotations);
+                const explanationSection = this.createQuestionSection('해설', item.explanationAreaInfo.annotationIds, data.annotations);
                 if (explanationSection) questionContainer.appendChild(explanationSection);
             }
 
@@ -293,7 +293,7 @@ class UploadEnglishQuestionViewer {
         });
     }
 
-    // Create question section
+    // 문항 섹션 생성
     createQuestionSection(title, annotationIds, annotations) {
         const section = document.createElement('div');
         section.className = 'question-section';
@@ -319,13 +319,13 @@ class UploadEnglishQuestionViewer {
         return hasContent ? section : null;
     }
 
-    // Find annotation
+    // Annotation 찾기
     findAnnotation(annotationId, annotations) {
         if (!annotations) return null;
         return annotations.find(ann => ann.id === annotationId);
     }
 
-    // Get image information
+    // 이미지 정보 가져오기
     getImageInfo(imageIds, images) {
         if (!imageIds || !images || imageIds.length === 0) {
             return [];
@@ -339,7 +339,7 @@ class UploadEnglishQuestionViewer {
         return result;
     }
 
-    // Create annotation content
+    // Annotation 콘텐츠 생성
     createAnnotationContent(annotation, sectionTitle, annotationId) {
         const contentDiv = document.createElement('div');
         contentDiv.className = 'annotation-content';
@@ -349,39 +349,39 @@ class UploadEnglishQuestionViewer {
         contentDiv.style.border = '1px solid #e9ecef';
         contentDiv.style.borderRadius = '6px';
 
-        // Use HTML if available; otherwise use text
+        // HTML이 있으면 HTML을 사용, 없으면 텍스트 사용
         if (annotation.html && annotation.html.trim()) {
-            // Display HTML safely
+            // HTML을 안전하게 표시
             contentDiv.innerHTML = `
                 <div style="font-size: 0.85rem; color: #666; margin-bottom: 8px;">
-                    ID: ${annotation.id} | Category: ${annotation.category_id || 'N/A'}
+                    ID: ${annotation.id} | 카테고리: ${annotation.category_id || 'N/A'}
                 </div>
                 <div>${this.sanitizeHtml(annotation.html)}</div>
             `;
         } else if (annotation.text && annotation.text.trim()) {
-            // Display text
+            // 텍스트를 표시
             const textContent = annotation.text.replace(/\n/g, '<br>');
             contentDiv.innerHTML = `
                 <div style="font-size: 0.85rem; color: #666; margin-bottom: 8px;">
-                    ID: ${annotation.id} | Category: ${annotation.category_id || 'N/A'}
+                    ID: ${annotation.id} | 카테고리: ${annotation.category_id || 'N/A'}
                 </div>
                 <div style="line-height: 1.6;">${textContent}</div>
             `;
         } else {
             contentDiv.innerHTML = `
                 <div style="font-size: 0.85rem; color: #666; margin-bottom: 8px;">
-                    ID: ${annotation.id} | Category: ${annotation.category_id || 'N/A'}
+                    ID: ${annotation.id} | 카테고리: ${annotation.category_id || 'N/A'}
                 </div>
-                <em style="color: #999;">No content available</em>
+                <em style="color: #999;">내용이 없습니다</em>
             `;
         }
 
         return contentDiv;
     }
 
-    // Sanitize HTML
+    // HTML 안전화
     sanitizeHtml(html) {
-        // Allow only basic HTML tags
+        // 기본적인 HTML 태그만 허용
         const allowedTags = ['div', 'span', 'p', 'br', 'strong', 'em', 'u', 'b', 'i', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = html;
@@ -389,19 +389,19 @@ class UploadEnglishQuestionViewer {
         return tempDiv.innerHTML;
     }
 
-    // Display raw JSON
+    // 원본 JSON 표시
     displayRawJson(data) {
         const rawJson = document.getElementById('rawJson');
         rawJson.textContent = JSON.stringify(data, null, 2);
     }
 
-    // Display HTML content
+    // HTML 콘텐츠 표시
     displayHtmlContent(data) {
         const htmlContent = document.getElementById('htmlContent');
         htmlContent.innerHTML = '';
 
         if (!data.items || data.items.length === 0) {
-            htmlContent.innerHTML = '<p>No content available for HTML display.</p>';
+            htmlContent.innerHTML = '<p>HTML로 표시할 콘텐츠가 없습니다.</p>';
             return;
         }
 
@@ -413,12 +413,12 @@ class UploadEnglishQuestionViewer {
             questionDiv.style.padding = '20px';
 
             const titleH3 = document.createElement('h3');
-            titleH3.textContent = `Question ${item.id || index + 1}`;
+            titleH3.textContent = `문항 ${item.id || index + 1}`;
             titleH3.style.color = '#667eea';
             titleH3.style.marginBottom = '10px';
             questionDiv.appendChild(titleH3);
 
-            // Add image information
+            // 이미지 정보 추가
             const imageInfo = this.getImageInfo(item.imageIds, data.images);
             if (imageInfo.length > 0) {
                 const imageInfoDiv = document.createElement('div');
@@ -438,18 +438,18 @@ class UploadEnglishQuestionViewer {
                 }).join('<br>');
                 
                 imageInfoDiv.innerHTML = `
-                    <strong>📁 Source image:</strong><br>
+                    <strong>📁 원본 이미지:</strong><br>
                     ${imageList}
                 `;
                 questionDiv.appendChild(imageInfoDiv);
             }
 
-            // Process each section
+            // 각 영역별로 처리
             const sections = [
-                { title: 'Passage', ids: item.passageAreaInfo?.annotationIds || [] },
-                { title: 'Question', ids: item.questionAreaInfo?.annotationIds || [] },
-                { title: 'Answer', ids: item.answerAreaInfo?.annotationIds || [] },
-                { title: 'Explanation', ids: item.explanationAreaInfo?.annotationIds || [] }
+                { title: '지문', ids: item.passageAreaInfo?.annotationIds || [] },
+                { title: '문제', ids: item.questionAreaInfo?.annotationIds || [] },
+                { title: '답안', ids: item.answerAreaInfo?.annotationIds || [] },
+                { title: '해설', ids: item.explanationAreaInfo?.annotationIds || [] }
             ];
 
             sections.forEach(section => {
@@ -494,7 +494,7 @@ class UploadEnglishQuestionViewer {
                         }
                     });
 
-                    if (sectionDiv.children.length > 1) { // Add only when title + content exist
+                    if (sectionDiv.children.length > 1) { // title + content가 있을 때만 추가
                         questionDiv.appendChild(sectionDiv);
                     }
                 }
@@ -504,15 +504,15 @@ class UploadEnglishQuestionViewer {
         });
     }
 
-    // Switch tabs
+    // 탭 전환
     switchTab(tabName) {
-        // Update active tab button state
+        // 탭 버튼 활성화 상태 변경
         document.querySelectorAll('.tab').forEach(tab => {
             tab.classList.remove('active');
         });
         document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
 
-        // Show/hide tab content
+        // 탭 콘텐츠 표시/숨김
         document.querySelectorAll('.question-viewer').forEach(viewer => {
             viewer.classList.remove('active');
             viewer.style.display = 'none';
@@ -526,7 +526,7 @@ class UploadEnglishQuestionViewer {
     }
 }
 
-// Initialize viewer when page loads
+// 페이지 로드 시 뷰어 초기화
 document.addEventListener('DOMContentLoaded', () => {
     new UploadEnglishQuestionViewer();
 });

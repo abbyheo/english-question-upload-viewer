@@ -1,156 +1,107 @@
-# 📚 English Question Viewer - 파일 업로드 버전
+# 📚 English Question QC Viewer
 
-중고등학생 영어문항 검토 시스템의 파일 업로드 버전입니다. JSON 파일을 업로드하여 문항을 확인할 수 있습니다.
+<p>
+  <a href="./README.md"><img alt="English README" src="https://img.shields.io/badge/English-README-2f6fed?style=for-the-badge"></a>
+  <a href="./README.ko.md"><img alt="Korean README" src="https://img.shields.io/badge/KOR-%ED%95%9C%EA%B5%AD%EC%96%B4%20README-6f42c1?style=for-the-badge"></a>
+</p>
 
-## 🚀 주요 기능
+A browser-only QA viewer for reviewing English exam question JSON files during a content data processing workflow.
 
-### 📁 파일 업로드
-- **드래그 앤 드롭**: 파일을 드래그하여 업로드
-- **클릭 업로드**: 업로드 영역 클릭으로 파일 선택
-- **다중 파일**: 여러 JSON 파일 동시 업로드 가능
-- **파일 검증**: JSON 형식 및 구조 자동 검증
-- **파일 크기 제한**: 10MB 이하 파일만 업로드 가능
+This viewer helps PMs, data engineers, and first-pass reviewers inspect uploaded JSON locally, compare raw structured data with rendered question output, and support QA / delivery-readiness decisions without sending uploaded files to a backend service.
 
-### 📋 파일 관리
-- **파일 목록**: 업로드된 파일들의 목록 표시
-- **파일 정보**: 파일 크기, 업로드 시간 표시
-- **파일 삭제**: 더블클릭으로 파일 삭제
-- **자동 선택**: 첫 번째 업로드 파일 자동 선택
+## Live demo
 
-### 👀 문항 보기
-- **3가지 뷰 모드**:
-  - 📝 **문항 보기**: 구조화된 문항 표시
-  - 💻 **원본 JSON**: JSON 데이터 원본 표시
-  - 🌐 **HTML 렌더링**: HTML 형태로 렌더링된 콘텐츠
+- **Viewer:** https://abbyheo.github.io/english-question-upload-viewer/
+- **Korean UI archive:** https://abbyheo.github.io/english-question-upload-viewer/index-ko.html
 
-### 🎨 사용자 인터페이스
-- **현대적 디자인**: 그라데이션과 애니메이션 효과
-- **반응형 레이아웃**: 모바일/태블릿 지원
-- **토스트 메시지**: 작업 결과 알림
-- **로딩 표시**: 파일 처리 중 상태 표시
+## Try it with a sample file
 
-### ⌨️ 키보드 단축키
-- `Ctrl/Cmd + O`: 파일 열기
-- `Ctrl/Cmd + S`: 현재 파일 정보 저장 (개발용)
-- `Escape`: 선택 해제
+1. Download the sample JSON file: [`samples/sample-question-viewer.json`](./samples/sample-question-viewer.json)
+2. Open the [live viewer](https://abbyheo.github.io/english-question-upload-viewer/)
+3. Drag the sample JSON file into the upload area, or click the upload area and select the file.
+4. Switch between **Question View**, **Raw JSON**, and **HTML Rendering**.
 
-## 📖 사용법
+The sample file contains only synthetic sample question text such as “This is a sample question.” It is included so users can test the viewer without using real project data.
 
-### 1. 파일 업로드
-1. 웹 브라우저에서 `upload-viewer-enhanced.html` 파일을 엽니다
-2. 왼쪽 사이드바의 업로드 영역에 JSON 파일을 드래그하거나 클릭하여 선택합니다
-3. 파일이 자동으로 검증되고 업로드됩니다
+## Why I built this
 
-### 2. 문항 확인
-1. 업로드된 파일 목록에서 확인하고 싶은 파일을 클릭합니다
-2. 오른쪽 영역에서 문항 내용을 확인합니다
-3. 상단 탭을 클릭하여 다른 뷰 모드로 전환할 수 있습니다
+In an English exam content data processing project, reviewers needed a faster way to inspect extracted JSON and verify rendered question output before delivery.
 
-### 3. 파일 관리
-- **파일 선택**: 파일 목록에서 클릭
-- **파일 삭제**: 파일 목록에서 더블클릭 후 확인
-- **선택 해제**: `Escape` 키 또는 다른 파일 선택
+Platform engineering support was not available within the project timeline, so I built a lightweight browser-based review tool to keep the QA workflow moving. The tool was designed for PMs, data engineers, and first-pass reviewers who needed a shared way to inspect uploaded JSON, rendered question content, and review context.
 
-## 🔧 기술 스펙
+## What it does
 
-### 지원 파일 형식
-- **JSON 파일** (`.json`)
-- **최대 파일 크기**: 10MB
-- **필수 구조**: `items` 배열 포함
+- Upload one or more `.json` files by drag-and-drop or file selection.
+- Validate that uploaded files are JSON.
+- Display uploaded files in a local file list.
+- Show extracted question data in three modes:
+  - **Question View** — structured question sections such as passage, question, answer, and explanation.
+  - **Raw JSON** — the original uploaded JSON structure.
+  - **HTML Rendering** — rendered HTML content for reviewer inspection.
+- Keep uploaded data in browser memory only during the session.
 
-### 브라우저 지원
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
+## Privacy / confidentiality note
 
-### 주요 라이브러리
-- **Font Awesome**: 아이콘
-- **Vanilla JavaScript**: 순수 자바스크립트로 구현
+This public repository is a sanitized demo. It does **not** include company data, customer data, proprietary source files, internal systems, or real production samples.
 
-## 📁 파일 구조
+Uploaded files are processed locally in the browser with the `FileReader` API. They are not sent to a backend service and are not stored by this site.
 
-```
-upload-viewer-enhanced.html    # 메인 HTML 파일
-upload-viewer-enhanced.js      # JavaScript 로직
-README-upload-viewer.md        # 이 파일
-```
+## Supported file structure
 
-## 🎯 JSON 파일 구조
-
-업로드하는 JSON 파일은 다음과 같은 구조를 가져야 합니다:
+The viewer expects a JSON file with an `items` array and related `annotations` / `images` data.
 
 ```json
 {
   "items": [
     {
-      "id": "문항ID",
-      "answerType": "답안타입",
-      "imageIds": ["이미지ID1", "이미지ID2"],
-      "passageAreaInfo": {
-        "annotationIds": ["주석ID1", "주석ID2"]
-      },
-      "questionAreaInfo": {
-        "annotationIds": ["주석ID3"]
-      },
-      "answerAreaInfo": {
-        "annotationIds": ["주석ID4"]
-      },
-      "explanationAreaInfo": {
-        "annotationIds": ["주석ID5"]
-      }
+      "id": "question-id",
+      "answerType": "choice",
+      "imageIds": [0],
+      "passageAreaInfo": { "annotationIds": [1] },
+      "questionAreaInfo": { "annotationIds": [2] },
+      "answerAreaInfo": { "annotationIds": [3] },
+      "explanationAreaInfo": { "annotationIds": [4] }
     }
   ],
   "annotations": [
     {
-      "id": "주석ID",
-      "category_id": "카테고리",
-      "text": "텍스트 내용",
-      "html": "HTML 내용"
+      "id": 1,
+      "category_id": 3,
+      "text": "This is a sample body text.",
+      "html": "<div>This is a sample body text.</div>"
     }
   ],
   "images": [
     {
-      "id": "이미지ID",
-      "file_name": "파일명.png",
-      "page_type": "페이지타입",
+      "id": 0,
+      "file_name": "sample_page.png",
+      "page_type": "sample",
       "width": 800,
       "height": 600
     }
-  ],
-  "info": {
-    "provider": "제공자 정보"
-  }
+  ]
 }
 ```
 
-## 🚨 주의사항
+## Browser support
 
-1. **파일 크기**: 10MB를 초과하는 파일은 업로드할 수 없습니다
-2. **파일 형식**: JSON 파일만 지원됩니다
-3. **브라우저 호환성**: 최신 브라우저 사용을 권장합니다
-4. **데이터 보안**: 업로드된 파일은 브라우저 메모리에만 저장되며, 서버로 전송되지 않습니다
+- Chrome 60+
+- Firefox 55+
+- Safari 12+
+- Edge 79+
 
-## 🔄 업데이트 내역
+## Repository structure
 
-### v2.0 (Enhanced Version)
-- 🎨 현대적 UI/UX 디자인 적용
-- 📱 반응형 레이아웃 개선
-- ⌨️ 키보드 단축키 추가
-- 🔍 파일 검증 기능 강화
-- 📊 파일 정보 표시 개선
-- 🗑️ 파일 삭제 기능 추가
-- ⚡ 성능 최적화
+```text
+README.md                    # English README
+README.ko.md                 # Korean README
+index.html                   # English UI / default GitHub Pages entry
+index-ko.html                # Preserved Korean UI archive
+upload-viewer-simple.js      # English UI logic
+upload-viewer-simple-ko.js   # Preserved Korean UI logic
+samples/sample-question-viewer.json
+```
 
-### v1.0 (Basic Version)
-- 📁 기본 파일 업로드 기능
-- 👀 문항 보기 기능
-- 📋 탭 기반 뷰 모드
+## License
 
-## 🤝 기여하기
-
-버그 리포트나 기능 제안은 이슈로 등록해주세요.
-
-## 📄 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+This project is distributed under the MIT License.
