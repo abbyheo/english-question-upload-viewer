@@ -1,7 +1,6 @@
 class UploadEnglishQuestionViewer {
     constructor() {
         this.currentData = null;
-        this.quillInstances = new Map();
         this.uploadedFiles = new Map(); // filename -> file object mapping
         this.currentFileName = null;
         

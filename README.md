@@ -5,9 +5,7 @@
   <a href="./README.ko.md"><img alt="Korean README" src="https://img.shields.io/badge/KOR-%ED%95%9C%EA%B5%AD%EC%96%B4%20README-6f42c1?style=for-the-badge"></a>
 </p>
 
-A small browser-only viewer for checking English workbook JSON files converted from PDF source books.
-
-PMs, data engineers, and first-pass reviewers can upload one workbook JSON locally, inspect the raw data, and see how each question renders. The file stays in the browser and is not sent to a backend service.
+Built a browser-only QC viewer for workbook JSON files, giving PMs, data engineers, and first-pass reviewers a shared way to inspect raw JSON, rendered question output, and question-level structure locally without uploading data to a backend.
 
 ## Demo
 
