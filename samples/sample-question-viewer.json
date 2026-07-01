@@ -2,7 +2,7 @@
   "info": {
     "html_url": "",
     "provider": "Abby Heo",
-    "description": "Customer-safe synthetic sample with 5 questions for testing upload, rendering, and search.",
+    "description": "Customer-safe synthetic sample with 5 questions for testing upload, search, and rendered HTML QC. Question 21 intentionally contains a table layout defect that is easier to catch in the HTML preview than in raw JSON.",
     "providerLabel": "Provider: Abby Heo"
   },
   "items": [
@@ -699,8 +699,8 @@
         0,
         0
       ],
-      "html": "<div class=\"rubric passage\"><span class=\"0\">This is a sample passage about a school newsletter and a grammar point.</span></div>",
-      "text": "This is a sample passage about a school newsletter and a grammar point.",
+      "html": "<div class=\"rubric passage\"><span class=\"0\">Read the club schedule and answer the question.</span><table style=\"border-collapse:collapse;width:100%;margin-top:8px;font-size:14px;\"><tr><th style=\"border:1px solid #777;padding:6px;background:#f2f2f2;text-align:left;\">Day</th><th style=\"border:1px solid #777;padding:6px;background:#f2f2f2;text-align:left;\">Room</th><th style=\"border:1px solid #777;padding:6px;background:#f2f2f2;text-align:left;\">Activity</th></tr><tr><td style=\"border:1px solid #777;padding:6px;\">Monday</td><td style=\"border:1px solid #777;padding:6px;\">101</td><td style=\"border:1px solid #777;padding:6px;\">Debate practice</td></tr><tr><td rowspan=\"2\" style=\"border:1px solid #777;padding:6px;\">Wednesday</td><td style=\"border:1px solid #777;padding:6px;\">204</td><td style=\"border:1px solid #777;padding:6px;\">Robotics lab</td></tr><tr><td style=\"border:1px solid #777;padding:6px;\">Friday</td><td style=\"border:1px solid #777;padding:6px;\">Library</td><td style=\"border:1px solid #777;padding:6px;\">Book club</td></tr></table></div>",
+      "text": "Read the club schedule and answer the question.\nDay | Room | Activity\nMonday | 101 | Debate practice\nWednesday | 204 | Robotics lab\nFriday | Library | Book club",
       "piece": false,
       "iscrowd": 0,
       "bbox_rel": [
@@ -727,8 +727,8 @@
         0,
         0
       ],
-      "html": "<div class=\"rubric question\"><span class=\"0\">This is a sample grammar question.</span></div>",
-      "text": "This is a sample grammar question.",
+      "html": "<div class=\"rubric question\"><span class=\"0\">Which activity is scheduled for Friday?<br/>① Debate practice<br/>② Robotics lab<br/>③ Book club<br/>④ Film club<br/>⑤ Library tour</span></div>",
+      "text": "Which activity is scheduled for Friday?\n① Debate practice\n② Robotics lab\n③ Book club\n④ Film club\n⑤ Library tour",
       "piece": false,
       "iscrowd": 0,
       "bbox_rel": [
@@ -755,8 +755,8 @@
         0,
         0
       ],
-      "html": "<div class=\"rubric answer\"><span class=\"0\">②</span></div>",
-      "text": "②",
+      "html": "<div class=\"rubric answer\"><span class=\"0\">③</span></div>",
+      "text": "③",
       "piece": false,
       "iscrowd": 0,
       "bbox_rel": [
@@ -783,8 +783,8 @@
         0,
         0
       ],
-      "html": "<div class=\"rubric explanation\"><span class=\"0\">The sample answer is option ② because the grammar pattern matches the sentence.</span></div>",
-      "text": "The sample answer is option ② because the grammar pattern matches the sentence.",
+      "html": "<div class=\"rubric explanation\"><span class=\"0\">The correct source text says Friday is scheduled for Book club, but the rendered table shifts the Friday row under the wrong columns.</span></div>",
+      "text": "The correct source text says Friday is scheduled for Book club, but the rendered table shifts the Friday row under the wrong columns.",
       "piece": false,
       "iscrowd": 0,
       "bbox_rel": [
